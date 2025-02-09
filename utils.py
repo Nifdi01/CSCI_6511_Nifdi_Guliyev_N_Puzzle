@@ -19,3 +19,15 @@ def read_puzzle(file_path):
     
     return puzzle
         
+def generate_goal_state(n):
+    goal = [[(i*n+j+1) % (n*n) for j in range(n)] for i in range(n)]
+    return tuple(tuple(row) for row in goal)
+
+
+def find_blank(state, n):
+    for i in range(n):
+        for j in range(n):
+            if state[i][j]==0:
+                return i, j
+            
+    return -1, -1

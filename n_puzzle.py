@@ -3,7 +3,7 @@ from heuristics import *
 from utils import generate_goal_state, find_blank
 
 class NPuzzle:
-    def __init__(self, initial_state, heuristic=None):
+    def __init__(self, initial_state, heuristic="m"):
         self.n = len(initial_state)
         for idx, row in enumerate(initial_state):
             if len(row) != self.n:
@@ -12,9 +12,10 @@ class NPuzzle:
                 )
         self.initial_state = tuple(tuple(row) for row in initial_state)
         if heuristic == "e":
-            print("found")
+            print("Using Euclidean")
             self.heuristic = euclidean
-        else:
+        elif heuristic == "m":
+            print("Using Manhattan")
             self.heuristic = manhattan
         self.goal_state = generate_goal_state(self.n)
         

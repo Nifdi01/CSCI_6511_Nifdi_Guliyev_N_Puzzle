@@ -10,7 +10,15 @@ def main():
         print(f"Error reading puzzle file: {e}")
         return
     
-    heuristic = sys.argv[1]
+    try:
+        heuristic = sys.argv[1]
+        if heuristic not in "me":
+            print("No such heurstic")
+            print("Usage:")
+            print(" e - Euclidean\n m (default) - Manhattan")
+            return
+    except:
+        heuristic="m"
 
     try:
         puzzle = NPuzzle(initial_state, heuristic=heuristic)

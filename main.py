@@ -28,7 +28,7 @@ def main():
 
     solution = puzzle.solve()
     if solution!=-1:
-        print("Solution found in", solution, "moves:")
+        print("Solution found in", solution, "moves")
     else:
         print("No solution found.")
         

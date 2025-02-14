@@ -7,7 +7,7 @@ def manhattan(n, state):
             val = state[i][j]
             if val != 0:
                 target_i, target_j = (val - 1) // n, (val - 1) % n
-                distance += abs((target_i - i) + (target_j - j))
+                distance += abs((target_i - i)) + abs((target_j - j))
     return distance
 
 

@@ -36,14 +36,17 @@ class NPuzzle:
     def solve(self):
         priority_queue = PriorityQueue()
         initial_heuristic = self.heuristic(self.n, self.initial_state)
-        
         priority_queue.put((initial_heuristic, 0, self.initial_state))
+        
         visited = set()
+        nodes_expanded = 0  # Counter for nodes expanded
         
         while not priority_queue.empty():
             _, cost, current_state = priority_queue.get()
+            nodes_expanded += 1  # Increment counter each time we pop a node
             
             if current_state == self.goal_state:
+                print("Nodes Expanded:", nodes_expanded)
                 return cost
             
             if current_state in visited:
@@ -57,4 +60,5 @@ class NPuzzle:
                     h = self.heuristic(self.n, neighbor)
                     priority_queue.put((new_cost + h, new_cost, neighbor))
 
+        print("Nodes Expanded:", nodes_expanded)
         return -1

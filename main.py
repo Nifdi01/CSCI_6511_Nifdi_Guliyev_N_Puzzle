@@ -51,3 +51,7 @@ def main():
         print("Solution found in", solution, "moves")
     else:
         print("No solution found.")
+        
+        
+if __name__ == "__main__":
+    main()

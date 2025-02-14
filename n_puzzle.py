@@ -105,16 +105,13 @@ class NPuzzle:
         priority_queue.put((initial_heuristic, 0, self.initial_state))
         
         visited = set()  # Set to track visited states and avoid revisiting
-        nodes_expanded = 0  # Counter for the number of nodes expanded during the search
         
         # A* search loop: process nodes until the queue is empty or the goal is reached
         while not priority_queue.empty():
             _, cost, current_state = priority_queue.get()
-            nodes_expanded += 1  # Increment the expansion counter
             
             # Check if the goal state has been reached
             if current_state == self.goal_state:
-                print("Nodes Expanded:", nodes_expanded)
                 return cost
             
             # Skip processing if the current state has already been visited
@@ -133,6 +130,4 @@ class NPuzzle:
                     # Add the neighbor to the queue with priority as cost + heuristic
                     priority_queue.put((new_cost + h, new_cost, neighbor))
         
-        # If the queue is exhausted without finding a solution, output the nodes expanded and return -1
-        print("Nodes Expanded:", nodes_expanded)
         return -1

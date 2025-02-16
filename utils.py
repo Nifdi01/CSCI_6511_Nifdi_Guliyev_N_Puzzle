@@ -1,5 +1,7 @@
 from typing import List, Tuple
 
+from typing import List
+
 def read_puzzle(file_path: str) -> List[List[int]]:
     """
     Reads a sliding puzzle configuration from a text file and returns it as a 2D list.
@@ -10,7 +12,7 @@ def read_puzzle(file_path: str) -> List[List[int]]:
     
     After reading, each row is padded with zeros on the left if it has fewer elements than the 
     number of rows, ensuring the puzzle is an n x n matrix. If a row has more than n elements, 
-    a ValueError is raised.
+    a ValueError is raised. Additionally, the function ensures that 3 <= n <= 6.
     
     Parameters:
         file_path (str): The path to the puzzle file.
@@ -19,10 +21,11 @@ def read_puzzle(file_path: str) -> List[List[int]]:
         List[List[int]]: A 2D list representing the puzzle state.
     
     Raises:
-        ValueError: If any row does not have the expected number of elements after padding.
+        ValueError: If the puzzle size is not within the allowed range (3 <= n <= 6) or 
+                    if any row does not have the expected number of elements after padding.
     """
-    puzzle: List[List[int]] = list()
-    
+    puzzle: List[List[int]] = []
+
     # Open and read the file line by line
     with open(file_path) as file:
         for line in file:
@@ -31,19 +34,22 @@ def read_puzzle(file_path: str) -> List[List[int]]:
             # Convert each token to an integer if it's a digit; otherwise, use 0
             row = [int(token) if token.isdigit() else 0 for token in tokens]
             puzzle.append(row)
-    
+
     n = len(puzzle)  # The expected number of elements per row based on the number of rows
-    
+
+    # Enforce the constraint 3 <= n <= 6
+    if not (3 <= n <= 6):
+        raise ValueError(f"Invalid puzzle size: {n}x{n}. Puzzle size must be between 3 and 6.")
+
     # Pad rows with fewer elements than n by inserting zeros at the beginning
     for idx, row in enumerate(puzzle):
         while len(row) < n:
             row.insert(0, 0)
-        # Check if the row length is exactly n after padding
         if len(row) != n:
-            # Note: The variable 'id' is undefined here. It is likely intended to be 'idx'.
             raise ValueError(f"Row {idx+1} has {len(row)} elements but expected {n}.")
-    
+
     return puzzle
+
 
 def generate_goal_state(n: int) -> Tuple[Tuple[int, ...], ...]:
     """
